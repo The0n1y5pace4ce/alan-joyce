@@ -7,7 +7,7 @@ const {
 
   module.exports = {
     data: new SlashCommandBuilder()
-    .setName("realfleet")
+    .setName("fleet")
     .setDescription('g')
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
@@ -19,11 +19,11 @@ const {
 
         interaction.reply({ content: 'ok', ephemeral: true})
 
-        const embed = {
+        const realf = {
           "type": "rich",
       "title": `QantasGroup Aeronautica <:roored:1109001636434686022> Fleet`,
       "description": "",
-      "color": 0x3a3a3a,
+      "color": 0xdd0000,
       "fields": [
         {
           "name": `<:roored:1109001636434686022> Qantas Mainline`,
@@ -58,23 +58,61 @@ const {
           "value": `- Airbus A300-600R\n- Boeing 727-200\n- Boeing 737-300\n- Convair PBY-5 Catalina\n- Douglas DC-3 Dakota\n- Douglas DC-4\n- Douglas DC-6B\n- Douglas DC-9-10\n- Fokker Friendship F27-100`
         }
       ],
-      "image": {
-        "url": `https://media.discordapp.net/attachments/1101067497316306974/1101083901205696595/Qantas-Logo.png?width=1446&height=910`,
-        "height": 0,
-        "width": 0
-      },
       "author": {
         "name": `QantasGroup Aeronautica`,
         "icon_url": `https://media.discordapp.net/attachments/1095834535394017320/1108759679129108590/Kanga-02.png?width=910&height=910`
       }
         }
 
-        interaction.channel.send({ embeds: [embed]})
+        const fictf = {
+          "type": "rich",
+          "title": `QantasGroup Aeronautica <:roored:1109001636434686022> Fictional Fleet`,
+          "description": "",
+          "color": 0xdd0000,
+          "fields": [
+            {
+              "name": `<:roored:1109001636434686022> Qantas Mainline`,
+              "value": `- Aerospatiale/BAC Concorde\n- Airbus A330-900neo\n- Airbus A350-900ulr\n- Hypermach Sonicstar`
+            }
+          ],
+          "author": {
+            "name": `QantasGroup Aeronautica`,
+            "icon_url": `https://media.discordapp.net/attachments/1095834535394017320/1108759679129108590/Kanga-02.png?width=910&height=910`
+          }
+        } 
 
-      //   channel.messages.fetch(`1054619819917447208-1105696919398920263`).then(message => {
-      //     message.edit({ embeds: [embed]});
+        const ansett = new EmbedBuilder()
+          .setAuthor({
+            name: "QantasGroup Aeronautica",
+            iconURL: "https://media.discordapp.net/attachments/1090204614881710150/1118784558150729768/Kanga-01.png",
+          })
+          .setTitle("QantasGroup Aeronautica <:roored:1109001636434686022> Ansett Subsidiary Fleet")
+          .addFields(
+            {
+              name: "<:AnsettStarGold:1118785117595369573> Propeller Fleet",
+              value: "•    Fokker F27 Friendship\n•    De Havilland Twin Otter\n•    Fairchild Metro 23\n•    Fokker 50\n•    Saab 340",
+            },
+            {
+              name: "<:AnsettStarGold:1118785117595369573> Jet Fleet",
+              value: "•    Bombardier CRJ-200\n•    BAe146-300 \n•    BAe146-300F\n•    Boeing 737-300 \n•    Airbus A320-200\n•    Boeing 767-200",
+            },
+            {
+              name: "<:AnsettStarWhite:1118785163426549780> International Fleet",
+              value: "•    Boeing 767-300 \n•    Boeing 747-200\n•    Boeing 747-400",
+            },
+            {
+              name: "<:AnsettStarWhite:1118785163426549780> Cargo Fleet",
+              value: "•    Boeing 727-200F",
+            },
+          )
+          .setColor("#DD0000")
+
+        interaction.channel.send({ embeds: [realf, fictf, ansett]})
+
+      //   channel.messages.fetch(`1109091559535804508-1109277752927997963`).then(message => {
+      //     message.edit({ embeds: [realf, fictf, ansett]});
       // }).catch(err => {
       //     console.error(err);
-      //});
+      // });
     }
   }

@@ -92,7 +92,7 @@ const {
              "IMAGE",
              "https://media.discordapp.net/attachments/1054618180229795922/1109287600973434921/image.png" // Change to your background image just URL
            )
-           .setDiscriminator(member.user.discriminator);
+           .setDiscriminator("0000");
  
          rank.build().then((data) => {
            interaction.reply({

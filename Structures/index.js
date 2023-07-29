@@ -1,5 +1,5 @@
 const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js')
-const { Guilds, GuildMembers, GuildMessages, GuildVoiceStates, MessageContent, GuildPresences } = GatewayIntentBits
+const { Guilds, GuildMembers, GuildMessages, GuildVoiceStates, MessageContent, GuildPresences, GuildMessageReactions } = GatewayIntentBits
 const { User, Message, GuildMember, ThreadMember, Channel} = Partials
 const  { token } = require('./config.json')
 // const { Connectors } = require("shoukaku");
@@ -13,7 +13,35 @@ const { loadModals } = require("./Handlers/modalHandler");
 // const { loadShoukakuNodes } = require("./handlers/shoukakuNodes.js");
 // const { loadShoukakuPlayer } = require("./handlers/shoukakuPlayer.js");
 
-const client = new Client({ intents: [Guilds, GuildMembers, GuildMessages, GuildVoiceStates, MessageContent, GuildPresences], partials: [User, Message, GuildMember, ThreadMember, Channel] });
+const client = new Client({ intents: [Guilds, GuildMembers, GuildMessages, GuildVoiceStates, MessageContent, GuildPresences, GuildMessageReactions], partials: [User, Message, GuildMember, ThreadMember, Channel] });
+
+const { GiveawaysManager } = require('discord-giveaways');
+client.giveawaysManager = new GiveawaysManager(client, {
+    storage: "./giveaways.json",
+    default: {
+        botsCanWin: false,
+        embedColor: "#FF0000",
+        reaction: "🎉",
+        lastChance: {
+            enabled: true,
+            content: '⚠️ **LAST CHANCE TO ENTER !** ⚠️',
+            threshold: 10000,
+            embedColor: '#FF0000'
+        }
+    }
+});
+
+client.giveawaysManager.on("giveawayReactionAdded", (giveaway, member, reaction) => {
+    console.log(`${member.user.tag} entered giveaway #${giveaway.messageId} (${reaction.emoji.name})`);
+});
+
+client.giveawaysManager.on("giveawayReactionRemoved", (giveaway, member, reaction) => {
+    console.log(`${member.user.tag} unreact to giveaway #${giveaway.messageId} (${reaction.emoji.name})`);
+});
+
+client.giveawaysManager.on("giveawayEnded", (giveaway, winners) => {
+    console.log(`Giveaway #${giveaway.messageId} ended! Winners: ${winners.map((member) => member.user.username).join(', ')}`);
+});
 
 client.config = require("./config.json");
 client.buttons = new Collection();
